@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#16a34a">
+    <title>Hukum Ohm — Hitung Arus, Tegangan &amp; Hambatan</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div class="bg" aria-hidden="true">
+        <span class="blob"></span><span class="blob"></span><span class="blob"></span>
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+    </div>
+
+    <header class="nav">
+        <div class="nav-in">
+            <a class="logo" href="index.html"><i>↯</i> kWh Meter</a>
+            <nav class="menu" id="menu" aria-label="Navigasi utama">
+                <a href="index.html">⚡ Kalkulator Listrik</a>
+                <a href="Ohm.html" class="active" aria-current="page">🔋 Hukum Ohm</a>
+            </nav>
+            <div class="nav-actions">
+                <button class="icon-btn" id="theme" aria-label="Ganti tema"><span>🌓</span></button>
+                <button class="icon-btn burger" id="burger" aria-label="Buka menu" aria-expanded="false"
+                    aria-controls="menu"><i></i></button>
+            </div>
+        </div>
+    </header>
+    <div class="scrim" id="scrim"></div>
+
+    <main class="wrap">
+        <div class="hero">
+            <span class="eyebrow">🔋 Hukum Ohm</span>
+            <h1>Cari arus, tegangan, atau <em>hambatan</em> dalam sekejap.</h1>
+            <p>Isi dua besaran, besaran ketiga dihitung otomatis. Lihat aliran listriknya bergerak di rangkaian.</p>
+        </div>
+
+        <div class="grid">
+            <div>
+                <div class="card">
+                    <h2>🧮 Kalkulator</h2>
+                    <p class="hint" style="margin:-6px 0 12px">Pilih besaran yang ingin dicari, lalu isi dua lainnya.
+                    </p>
+                    <div class="seg" id="ohmSeg">
+                        <button data-m="I" class="on">Cari I (arus)</button>
+                        <button data-m="V">Cari V (tegangan)</button>
+                        <button data-m="R">Cari R (hambatan)</button>
+                    </div>
+                    <div class="ohm-grid">
+                        <div><label for="oV">V — Tegangan (Volt)</label><input id="oV" type="number"
+                                inputmode="decimal" min="0" value="220"></div>
+                        <div><label for="oI">I — Kuat arus (Ampere)</label><input id="oI" type="number"
+                                inputmode="decimal" min="0"></div>
+                        <div><label for="oR">R — Hambatan (Ohm)</label><input id="oR" type="number"
+                                inputmode="decimal" min="0" value="100"></div>
+                    </div>
+                    <div class="formula" id="ohmFormula"></div>
+                    <p class="hint" id="ohmExtra"></p>
+                    <div class="btns">
+                        <button class="btn btn-ghost" id="ohm220">Pakai 220 V (listrik rumah)</button>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h2>⚡ Nilai tegangan umum</h2>
+                    <p class="hint" style="margin:-6px 0 10px">Ketuk untuk mengisi V.</p>
+                    <div class="chips" id="vChips">
+                        <button class="chip" data-v="1.5">Baterai AA 1,5 V</button>
+                        <button class="chip" data-v="5">USB 5 V</button>
+                        <button class="chip" data-v="12">Aki / adaptor 12 V</button>
+                        <button class="chip" data-v="24">24 V</button>
+                        <button class="chip" data-v="110">110 V</button>
+                        <button class="chip" data-v="220">Listrik rumah 220 V</button>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <div class="card" id="stageCard">
+                    <h2>💡 Simulasi rangkaian</h2>
+                    <div class="stage">
+                        <svg class="circuit" id="circuit" viewBox="0 0 400 230" role="img"
+                            aria-label="Rangkaian listrik animasi: sumber tegangan dan hambatan">
+                            <path d="M70 55 H330 V175 H70 Z" fill="none" stroke="var(--line)" stroke-width="6"
+                                stroke-linejoin="round" />
+                            <path class="flow" d="M70 55 H330 V175 H70 Z" fill="none" stroke="var(--brand)"
+                                stroke-width="5" stroke-linecap="round" stroke-dasharray="1 14" />
+                            <!-- baterai -->
+                            <rect x="40" y="95" width="60" height="40" fill="var(--soft)" />
+                            <line x1="52" y1="100" x2="88" y2="100" stroke="var(--ink)" stroke-width="3"
+                                stroke-linecap="round" />
+                            <line x1="62" y1="110" x2="78" y2="110" stroke="var(--ink)" stroke-width="5"
+                                stroke-linecap="round" />
+                            <line x1="52" y1="120" x2="88" y2="120" stroke="var(--ink)" stroke-width="3"
+                                stroke-linecap="round" />
+                            <text x="30" y="106" text-anchor="end" font-size="15" font-weight="800"
+                                fill="var(--brand)">+</text>
+                            <text x="30" y="128" text-anchor="end" font-size="15" font-weight="800"
+                                fill="var(--muted)">−</text>
+                            <text x="100" y="206" text-anchor="middle" font-size="12" font-weight="800"
+                                fill="var(--muted)" id="cirV">V</text>
+                            <!-- hambatan -->
+                            <circle class="glow" cx="330" cy="115" r="44" fill="var(--brand2)" />
+                            <rect x="300" y="85" width="60" height="60" fill="var(--soft)" />
+                            <path d="M330 85 l12 6 -24 10 24 10 -24 10 24 10 -12 6" fill="none" stroke="var(--ink)"
+                                stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round" />
+                            <text x="290" y="120" text-anchor="end" font-size="13" font-weight="800"
+                                fill="var(--muted)" id="cirR">R</text>
+                            <!-- percikan -->
+                            <circle class="spark" cx="372" cy="92" r="3" fill="var(--brand2)" />
+                            <circle class="spark" cx="376" cy="132" r="2.5" fill="var(--brand2)" />
+                            <circle class="spark" cx="365" cy="112" r="2" fill="var(--brand2)" />
+                            <text x="200" y="44" text-anchor="middle" font-size="14" font-weight="800"
+                                fill="var(--ink)" id="cirI">I</text>
+                        </svg>
+                    </div>
+                    <div class="results">
+                        <div class="res"><span>Tegangan (V)</span><b id="rV">-</b></div>
+                        <div class="res"><span>Arus (I)</span><b id="rI">-</b></div>
+                        <div class="res"><span>Hambatan (R)</span><b id="rR">-</b></div>
+                        <div class="res"><span>Daya (P = V × I)</span><b id="rP">-</b></div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h2>📐 Segitiga Hukum Ohm</h2>
+                    <svg class="tri" viewBox="0 0 220 150" aria-label="Segitiga Hukum Ohm">
+                        <path d="M110 8 L212 140 H8 Z" fill="var(--soft)" stroke="var(--brand)" stroke-width="3"
+                            stroke-linejoin="round" />
+                        <line x1="40" y1="82" x2="180" y2="82" stroke="var(--brand)" stroke-width="2.5" />
+                        <line x1="110" y1="82" x2="110" y2="140" stroke="var(--brand)" stroke-width="2.5" />
+                        <text x="110" y="66" text-anchor="middle" font-size="26" font-weight="800"
+                            fill="var(--ink)">V</text>
+                        <text x="76" y="120" text-anchor="middle" font-size="26" font-weight="800"
+                            fill="var(--ink)">I</text>
+                        <text x="144" y="120" text-anchor="middle" font-size="26" font-weight="800"
+                            fill="var(--ink)">R</text>
+                    </svg>
+                    <p class="hint" style="text-align:center">Tutup besaran yang dicari: V = I × R · I = V ÷ R ·
+                        R = V ÷ I</p>
+                </div>
+            </div>
+        </div>
+    </main>
+    <p class="foot">kWh Meter · Hukum Ohm: V = I × R</p>
+    <div class="toast" id="toast" role="status"></div>
+
+    <script src="JS/Common.js"></script>
+    <script src="JS/Ohm.js"></script>
+</body>
+
+</html>

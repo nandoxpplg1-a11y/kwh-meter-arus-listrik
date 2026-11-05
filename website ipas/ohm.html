@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <meta name="theme-color" content="#16a34a">
     <title>Hukum Ohm — Hitung Arus, Tegangan &amp; Hambatan</title>
+    <script>try { var t = localStorage.getItem("kwh-theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) { }</script>
     <link rel="stylesheet" href="css/style.css">
 </head>
 
@@ -51,12 +52,12 @@
                         <button data-m="R">Cari R (hambatan)</button>
                     </div>
                     <div class="ohm-grid">
-                        <div><label for="oV">V — Tegangan (Volt)</label><input id="oV" type="number"
-                                inputmode="decimal" min="0" value="220"></div>
+                        <div><label for="oV">V — Tegangan (Volt)</label><input id="oV" type="number" inputmode="decimal"
+                                min="0" value="220"></div>
                         <div><label for="oI">I — Kuat arus (Ampere)</label><input id="oI" type="number"
                                 inputmode="decimal" min="0"></div>
-                        <div><label for="oR">R — Hambatan (Ohm)</label><input id="oR" type="number"
-                                inputmode="decimal" min="0" value="100"></div>
+                        <div><label for="oR">R — Hambatan (Ohm)</label><input id="oR" type="number" inputmode="decimal"
+                                min="0" value="100"></div>
                     </div>
                     <div class="formula" id="ohmFormula"></div>
                     <p class="hint" id="ohmExtra"></p>
@@ -101,21 +102,21 @@
                                 fill="var(--brand)">+</text>
                             <text x="30" y="128" text-anchor="end" font-size="15" font-weight="800"
                                 fill="var(--muted)">−</text>
-                            <text x="100" y="206" text-anchor="middle" font-size="12" font-weight="800"
+                            <text x="70" y="198" text-anchor="middle" font-size="12" font-weight="800"
                                 fill="var(--muted)" id="cirV">V</text>
                             <!-- hambatan -->
                             <circle class="glow" cx="330" cy="115" r="44" fill="var(--brand2)" />
                             <rect x="300" y="85" width="60" height="60" fill="var(--soft)" />
                             <path d="M330 85 l12 6 -24 10 24 10 -24 10 24 10 -12 6" fill="none" stroke="var(--ink)"
                                 stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round" />
-                            <text x="290" y="120" text-anchor="end" font-size="13" font-weight="800"
-                                fill="var(--muted)" id="cirR">R</text>
+                            <text x="290" y="120" text-anchor="end" font-size="13" font-weight="800" fill="var(--muted)"
+                                id="cirR">R</text>
                             <!-- percikan -->
                             <circle class="spark" cx="372" cy="92" r="3" fill="var(--brand2)" />
                             <circle class="spark" cx="376" cy="132" r="2.5" fill="var(--brand2)" />
                             <circle class="spark" cx="365" cy="112" r="2" fill="var(--brand2)" />
-                            <text x="200" y="44" text-anchor="middle" font-size="14" font-weight="800"
-                                fill="var(--ink)" id="cirI">I</text>
+                            <text x="200" y="44" text-anchor="middle" font-size="14" font-weight="800" fill="var(--ink)"
+                                id="cirI">I</text>
                         </svg>
                     </div>
                     <div class="results">
@@ -149,8 +150,8 @@
     <p class="foot">kWh Meter · Hukum Ohm: V = I × R</p>
     <div class="toast" id="toast" role="status"></div>
 
-    <script src="JS/Common.js"></script>
-    <script src="JS/Ohm.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/ohm.js"></script>
 </body>
 
 </html>

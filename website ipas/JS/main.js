@@ -27,6 +27,7 @@ const DEFAULT = [{ n: "Kulkas", w: 120, h: 24, q: 1 }, { n: "Lampu LED", w: 10, 
 let devices = [];
 const $ = id => document.getElementById(id);
 const rp = n => "Rp " + Math.round(n).toLocaleString("id-ID");
+const rpd = n => "Rp " + n.toLocaleString("id-ID", { maximumFractionDigits: 2 }); // tarif dengan desimal
 const num = (v) => { const x = parseFloat(v); return isFinite(x) && x > 0 ? x : 0; };
 const kwhFmt = n => n.toLocaleString("id-ID", { maximumFractionDigits: 2, minimumFractionDigits: 2 });
 
@@ -79,7 +80,7 @@ function renderList() {
     el.innerHTML = devices.map((d, i) => `
     <div class="dev${i === newIdx ? " new" : ""}" data-i="${i}">
       <div class="dev-top">
-        <input data-k="n" value="${String(d.n).replace(/"/g, "&quot;")}" placeholder="Nama perangkat" aria-label="Nama perangkat">
+        <input data-k="n" value="${esc(d.n)}" placeholder="Nama perangkat" aria-label="Nama perangkat">
         <button class="del" data-del="${i}" aria-label="Hapus">✕</button>
       </div>
       <div class="row3">
@@ -111,7 +112,7 @@ function calc() {
     tween($("perYear"), total / hari * 365, rp);
     const dial = $("dial"); dial.classList.toggle("paused", kwh <= 0);
     dial.style.setProperty("--spin", Math.max(.5, 6 / (1 + kwh / hari)) + "s");
-    $("rate").textContent = rp(tarif) + "/kWh";
+    $("rate").textContent = rpd(tarif) + "/kWh";
     $("token").textContent = kwhFmt(kwh) + " kWh";
 
     // Budget
@@ -155,7 +156,7 @@ function calc() {
     <p class="hint">Jika semua perangkat menyala bersamaan: <b>${watts.toLocaleString("id-ID")} W</b> dari kapasitas aman ± <b>${Math.round(safe).toLocaleString("id-ID")} W</b> (${Math.round(va).toLocaleString("id-ID")} VA × 0,8). Arus total ≈ <b>${(watts / 220).toLocaleString("id-ID", { maximumFractionDigits: 1 })} A</b> dari batas MCB ± <b>${(va / 220).toLocaleString("id-ID", { maximumFractionDigits: 1 })} A</b> (220 V). Ini perkiraan kasar; perangkat motor seperti AC/pompa butuh arus awal lebih besar.</p>`;
     grow($("cap"), "cap");
 
-    window.__summary = `⚡ Estimasi listrik ${hari} hari\n` + sorted.map(r => `• ${r.n || "Perangkat"}: ${kwhFmt(r.kwh)} kWh = ${rp(r.cost)}`).join("\n") + `\n\nTotal: ${kwhFmt(kwh)} kWh\nBiaya: ${rp(total)} (tarif ${rp(tarif)}/kWh${ppj ? `, PPJ ${ppj}%` : ""})`;
+    window.__summary = `⚡ Estimasi listrik ${hari} hari\n` + sorted.map(r => `• ${r.n || "Perangkat"}: ${kwhFmt(r.kwh)} kWh = ${rp(r.cost)}`).join("\n") + `\n\nTotal: ${kwhFmt(kwh)} kWh\nBiaya: ${rp(total)} (tarif ${rpd(tarif)}/kWh${ppj ? `, PPJ ${ppj}%` : ""})`;
     save();
 }
 function esc(s) { return String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c])); }

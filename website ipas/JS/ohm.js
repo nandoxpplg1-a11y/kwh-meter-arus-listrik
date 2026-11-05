@@ -1,4 +1,4 @@
-/* Hukum Ohm: V = I × R (halaman Ohm.html) */
+/* Hukum Ohm: V = I × R (halaman ohm.html) */
 const $ = id => document.getElementById(id);
 let ohmMode = "I";
 const ohmF = n => Number(n.toPrecision(6)).toLocaleString("id-ID", { maximumFractionDigits: 6 });

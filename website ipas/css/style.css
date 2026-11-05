@@ -277,6 +277,16 @@ button {
 }
 
 @media(max-width:760px) {
+
+    /* Perbaikan: navbar di atas scrim, dan tanpa backdrop-filter supaya
+       .menu (position: fixed) mengacu ke layar, bukan ke navbar 64px */
+    .nav {
+        z-index: 60;
+        background: var(--bg);
+        -webkit-backdrop-filter: none;
+        backdrop-filter: none
+    }
+
     .burger {
         display: grid
     }
@@ -1355,7 +1365,7 @@ input[readonly] {
     animation: pop .45s cubic-bezier(.2, 1.4, .4, 1)
 }
 
-.total {
+.grid .card.total {
     animation: rise .75s var(--ease) backwards, gradshift 9s ease-in-out infinite
 }
 
